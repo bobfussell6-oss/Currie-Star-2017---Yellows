@@ -104,8 +104,17 @@ line-height:1.8;
 
 <select id="seasonSelect">
 
-<option>1 - Beckham</option>
-<option selected>2 - Zidane</option>
+<option selected>
+All Seasons
+</option>
+
+<option>
+1 - Beckham
+</option>
+
+<option>
+2 - Zidane
+</option>
 
 </select>
 
@@ -230,10 +239,21 @@ document
 "seasonSelect"
 ).value;
 
-const data =
+let data;
+
+if(season === "All Seasons"){
+
+data = matches;
+
+}else{
+
+data =
 matches.filter(
 m => m["Season"] === season
 );
+
+}
+``
 
 let wins = 0;
 let draws = 0;
@@ -372,7 +392,9 @@ let matchHTML = `
 <table>
 
 <tr>
+<th>Season</th>
 <th>Date</th>
+<th>Match Type</th>
 <th>Opponent</th>
 <th>Venue</th>
 <th>Score</th>
@@ -380,7 +402,6 @@ let matchHTML = `
 <th>Captain</th>
 <th>Goalscorers</th>
 </tr>
-
 `;
 
 data
@@ -420,7 +441,11 @@ matchHTML += `
 
 <tr>
 
+<td>${match["Season"]}</td>
+
 <td>${match["Date"]}</td>
+
+<td>${match["Match Type"]}</td>
 
 <td>${match["Opposition"]}</td>
 
@@ -438,7 +463,6 @@ ${match["Goals Against"]}
 <td>${scorers.join(", ")}</td>
 
 </tr>
-
 `;
 
 });
