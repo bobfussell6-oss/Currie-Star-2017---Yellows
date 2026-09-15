@@ -2,31 +2,398 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Currie Star Fetch Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Currie Star 2017 Yellows</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f2f7ff;
+margin:0;
+padding:20px;
+color:#222;
+}
+
+h1{
+color:#0057b8;
+text-align:center;
+}
+
+.card{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+select{
+padding:10px;
+font-size:16px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+}
+
+th{
+background:#0057b8;
+color:white;
+padding:10px;
+}
+
+td{
+padding:10px;
+border:1px solid #ddd;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:10px;
+}
+
+.stat{
+background:#0057b8;
+color:white;
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
+
+.stat h2{
+margin:0;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>⚽ Currie Star Fetch Test</h1>
+<h1>⚽ Currie Star 2017 Yellows</h1>
 
-<div id="status">Loading...</div>
+<div class="card">
+
+<label>
+
+Season:
+
+</label>
+
+<select id="seasonSelect">
+
+<option>
+1 - Beckham
+</option>
+
+<option selected>
+2 - Zidane
+</option>
+
+</select>
+
+</div>
+
+<div class="card">
+
+<h2>Season Summary</h2>
+
+<div
+class="stats"
+id="summary">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>🏆 Top Scorers</h2>
+
+<div id="topScorers">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>📅 Match History</h2>
+
+<div id="matches">
+
+Loading...
+
+</div>
+
+</div>
 
 <script>
 
-fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRFC3rT4TgF0dD4eNEaDrwjOtGlN8H9na1ONDicw_un_K5Q_fzi22TK7dFKKnKWJTrsqO6HXwYcpx79/pub?output=csv")
-.then(response => response.text())
-.then(text => {
+const players = [
 
-document.getElementById("status").innerHTML =
-"SUCCESS - CSV length: " + text.length;
+"Jamie",
+"Sam",
+"Francesco",
+"Thomas",
+"Freddy",
+"Magnus",
+"Oliver",
+"Finn",
+"Mohammad",
+"Luke",
+"Brodie"
 
-})
-.catch(error => {
+];
 
-document.getElementById("status").innerHTML =
-"ERROR: " + error;
+const csvUrl =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vRFC3rT4TgF0dD4eNEaDrwjOtGlN8H9na1ONDicw_un_K5Q_fzi22TK7dFKKnKWJTrsqO6HXwYcpx79/pub?output=csv";
+
+let matches = [];
+
+fetch(csvUrl)
+
+.then(response=>response.text())
+
+.then(text=>{
+
+const rows =
+text.trim().split("\n");
+
+const headers =
+rows[0].split(",");
+
+matches =
+rows.slice(1).map(row=>{
+
+const values =
+row.split(",");
+
+let obj={};
+
+headers.forEach((h,i)=>{
+
+obj[h.trim()] =
+values[i]
+? values[i].trim()
+: "";
 
 });
+
+return obj;
+
+});
+
+render();
+
+});
+
+function render(){
+
+const season =
+document
+.getElementById(
+"seasonSelect"
+)
+.value;
+
+const data =
+matches.filter(
+m=>m["Season"]===season
+);
+
+let wins=0;
+let draws=0;
+let losses=0;
+
+let gf=0;
+let ga=0;
+
+const goals={};
+
+players.forEach(
+p=>goals[p]=0
+);
+
+data.forEach(match=>{
+
+gf += Number(
+match["Goals For"]
+|| 0
+);
+
+ga += Number(
+match["Goals Against"]
+|| 0
+);
+
+if(
+match["Result"]==="Win"
+) wins++;
+
+else if(
+match["Result"]==="Draw"
+) draws++;
+
+else if(
+match["Result"]==="Loss"
+) losses++;
+
+players.forEach(player=>{
+
+goals[player]+=
+
+Number(
+match[
+player+" Goals"
+]||0
+);
+
+});
+
+});
+
+document
+.getElementById(
+"summary"
+)
+.innerHTML=`
+
+<div class="stat">
+<h2>${data.length}</h2>
+Games
+</div>
+
+<div class="stat">
+<h2>${wins}</h2>
+Wins
+</div>
+
+<div class="stat">
+<h2>${draws}</h2>
+Draws
+</div>
+
+<div class="stat">
+<h2>${losses}</h2>
+Losses
+</div>
+
+<div class="stat">
+<h2>${gf}</h2>
+GF
+</div>
+
+<div class="stat">
+<h2>${ga}</h2>
+GA
+</div>
+`;
+
+const top3 =
+Object.entries(goals)
+.sort((a,b)=>b[1]-a[1])
+.slice(0,3);
+
+document
+.getElementById(
+"topScorers"
+)
+.innerHTML=`
+
+🥇 ${top3[0][0]}
+(${top3[0][1]})
+
+<br><br>
+
+🥈 ${top3[1][0]}
+(${top3[1][1]})
+
+<br><br>
+
+🥉 ${top3[2][0]}
+(${top3[2][1]})
+
+`;
+
+let html=`
+
+<table>
+
+<tr>
+
+<th>Date</th>
+<th>Opponent</th>
+<th>Venue</th>
+<th>Result</th>
+<th>Captain</th>
+
+</tr>
+
+`;
+
+data
+.slice()
+.reverse()
+.forEach(match=>{
+
+html+=`
+
+<tr>
+
+<td>
+${match["Date"]}
+</td>
+
+<td>
+${match["Opposition"]}
+</td>
+
+<td>
+${match["Venue"]}
+</td>
+
+<td>
+${match["Result"]}
+</td>
+
+<td>
+${match["Captain"]}
+</td>
+
+</tr>
+
+`;
+
+});
+
+html+="</table>";
+
+document
+.getElementById(
+"matches"
+)
+.innerHTML=html;
+
+}
+
+document
+.getElementById(
+"seasonSelect"
+)
+.addEventListener(
+"change",
+render
+);
 
 </script>
 
