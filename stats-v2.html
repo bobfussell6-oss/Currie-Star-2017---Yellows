@@ -1,13 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Stats V2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Currie Star 2017 Yellows</title>
+
+https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.jsscript>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f1f7ff;
+margin:0;
+padding:20px;
+}
+
+h1{
+color:#0057b8;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+}
+
+th{
+background:#0057b8;
+color:white;
+}
+
+th,td{
+padding:10px;
+border:1px solid #ddd;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>Stats Dashboard</h1>
+<h1>⚽ Currie Star 2017 Yellows</h1>
 
-<p>Testing...</p>
+<h2>Match Data Test</h2>
+
+<div id="status">
+Loading data...
+</div>
+
+<div id="matches"></div>
+
+<script>
+
+const csvUrl =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vRFC3rT4TgF0dD4eNEaDrwjOtGlN8H9na1ONDicw_un_K5Q_fzi22TK7dFKKnKWJTrsqO6HXwYcpx79/pub?output=csv";
+
+Papa.parse(csvUrl,{
+
+download:true,
+header:true,
+
+complete:function(results){
+
+document.getElementById(
+"status"
+).innerHTML =
+"✅ Data Loaded";
+
+let html = `
+<table>
+
+<tr>
+<th>Date</th>
+<th>Season</th>
+<th>Opposition</th>
+<th>Result</th>
+</tr>
+`;
+
+results.data.forEach(match=>{
+
+html += `
+<tr>
+
+<td>${match["Date"] || ""}</td>
+
+<td>${match["Season"] || ""}</td>
+
+<td>${match["Opposition"] || ""}</td>
+
+<td>${match["Result"] || ""}</td>
+
+</tr>
+`;
+
+});
+
+html += "</table>";
+
+document.getElementById(
+"matches"
+).innerHTML = html;
+
+}
+
+});
+
+</script>
 
 </body>
 </html>
