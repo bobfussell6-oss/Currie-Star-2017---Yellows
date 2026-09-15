@@ -2,45 +2,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CSV Test</title>
+<title>Papa Test</title>
 
 <script src="https://cdn.jsdelivr.net/npm/.1/papaparse.min.jsscript>
 
 </head>
 <body>
 
-<h1>CSV Test</h1>
+<h1>Papa Test</h1>
 
-<div id="status">Loading...</div>
+<div id="result">Loading...</div>
 
 <script>
 
-const csvUrl =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vRFC3rT4TgF0dD4eNEaDrwjOtGlN8H9na1ONDicw_un_K5Q_fzi22TK7dFKKnKWJTrsqO6HXwYcpx79/pub?output=csv";
-
-Papa.parse(csvUrl, {
-  download: true,
-  header: true,
-
-  complete: function(results) {
-
-    document.getElementById("status").innerHTML =
-      "SUCCESS. Rows loaded: " + results.data.length;
-
-    console.log(results);
-
-  },
-
-  error: function(err) {
-
-    document.getElementById("status").innerHTML =
-      "ERROR: " + JSON.stringify(err);
-
-    console.log(err);
-
-  }
-
-});
+document.getElementById("result").innerHTML =
+"Papa type = " + typeof Papa;
 
 </script>
 
