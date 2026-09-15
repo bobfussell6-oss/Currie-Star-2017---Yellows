@@ -2,108 +2,47 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSV Test</title>
 
-<title>Currie Star Test</title>
+https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.jsscript>
 
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
-<style>
-body{
-font-family:Arial,sans-serif;
-padding:20px;
-background:#f5f5f5;
-}
-</style>
 </head>
-
 <body>
-2
- 
-3
-<h1>⚽ Currie Star CSV Test</h1>
-4
- 
-5
+
+<h1>CSV Test</h1>
+
 <div id="status">Loading...</div>
-6
- 
-7
+
 <script>
-8
- 
-9
+
 const csvUrl =
-10
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFC3rT4TgF0dD4eNEaDrwjOtGlN8H9na1ONDicw_un_K5Q_fzi22TK7dFKKnKWJTrsqO6HXwYcpx79/pub?output=csv";
-11
- 
-12
-Papa.parse(csvUrl,{
-13
- 
-14
-download:true,
-15
-header:true,
-16
- 
-17
-complete:function(results){
-18
- 
-19
-document.getElementById(
-20
-"status"
-21
-).innerHTML =
-22
- 
-23
-"✅ Rows loaded: " +
-24
-results.data.length;
-25
- 
-26
-console.log(results.data);
-27
- 
-28
-},
-29
- 
-30
-error:function(err){
-31
- 
-32
-document.getElementById(
-33
-"status"
-34
-).innerHTML =
-35
- 
-36
-"❌ Error: " +
-37
-err;
-38
- 
-39
-}
-40
- 
-41
+
+Papa.parse(csvUrl, {
+  download: true,
+  header: true,
+
+  complete: function(results) {
+
+    document.getElementById("status").innerHTML =
+      "SUCCESS. Rows loaded: " + results.data.length;
+
+    console.log(results);
+
+  },
+
+  error: function(err) {
+
+    document.getElementById("status").innerHTML =
+      "ERROR: " + JSON.stringify(err);
+
+    console.log(err);
+
+  }
+
 });
-42
- 
-43
+
 </script>
-44
- 
-45
+
 </body>
 </html>
