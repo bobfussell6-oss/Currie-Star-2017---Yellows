@@ -9,46 +9,31 @@
 <style>
 
 body{
-font-family:Arial,sans-serif;
-background:#f2f7ff;
 margin:0;
-padding:20px;
+font-family:Arial,sans-serif;
+background:#eef5ff;
 color:#222;
 }
 
-h1{
-color:#0057b8;
+header{
+background:#0057b8;
+color:white;
+padding:30px;
 text-align:center;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
 }
 
 .card{
 background:white;
+border-radius:12px;
 padding:20px;
 margin-bottom:20px;
-border-radius:10px;
-box-shadow:0 2px 6px rgba(0,0,0,.1);
-}
-
-select{
-padding:10px;
-font-size:16px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-background:white;
-}
-
-th{
-background:#0057b8;
-color:white;
-padding:10px;
-}
-
-td{
-padding:10px;
-border:1px solid #ddd;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 .stats{
@@ -69,31 +54,58 @@ text-align:center;
 margin:0;
 }
 
-</style>
+select{
+padding:10px;
+font-size:16px;
+}
 
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#0057b8;
+color:white;
+padding:10px;
+}
+
+td{
+padding:10px;
+border:1px solid #ddd;
+}
+
+.formGuide{
+font-size:32px;
+}
+
+.scorers{
+font-size:20px;
+line-height:1.8;
+}
+
+</style>
 </head>
 
 <body>
 
+<header>
 <h1>⚽ Currie Star 2017 Yellows</h1>
+<p>Club Statistics Dashboard</p>
+</header>
+
+<div class="container">
 
 <div class="card">
 
-<label>
+<label><strong>Season</strong></label>
 
-Season:
-
-</label>
+<br><br>
 
 <select id="seasonSelect">
 
-<option>
-1 - Beckham
-</option>
-
-<option selected>
-2 - Zidane
-</option>
+<option>1 - Beckham</option>
+<option selected>2 - Zidane</option>
 
 </select>
 
@@ -101,26 +113,33 @@ Season:
 
 <div class="card">
 
-<h2>Season Summary</h2>
+<h2>📊 Season Summary</h2>
 
 <div
 class="stats"
 id="summary">
-
-Loading...
-
 </div>
 
 </div>
 
 <div class="card">
 
-<h2>🏆 Top Scorers</h2>
+<h2>🏆 Top 3 Scorers</h2>
 
-<div id="topScorers">
+<div
+id="topScorers"
+class="scorers">
+</div>
 
-Loading...
+</div>
 
+<div class="card">
+
+<h2>🔥 Form Guide</h2>
+
+<div
+id="formGuide"
+class="formGuide">
 </div>
 
 </div>
@@ -129,9 +148,15 @@ Loading...
 
 <h2>📅 Match History</h2>
 
-<div id="matches">
+<div id="matches"></div>
 
-Loading...
+</div>
+
+<div class="card">
+
+<h2>👥 Player Statistics</h2>
+
+<div id="playerStats"></div>
 
 </div>
 
@@ -162,9 +187,9 @@ let matches = [];
 
 fetch(csvUrl)
 
-.then(response=>response.text())
+.then(response => response.text())
 
-.then(text=>{
+.then(text => {
 
 const rows =
 text.trim().split("\n");
@@ -173,12 +198,12 @@ const headers =
 rows[0].split(",");
 
 matches =
-rows.slice(1).map(row=>{
+rows.slice(1).map(row => {
 
 const values =
 row.split(",");
 
-let obj={};
+let obj = {};
 
 headers.forEach((h,i)=>{
 
@@ -203,26 +228,31 @@ const season =
 document
 .getElementById(
 "seasonSelect"
-)
-.value;
+).value;
 
 const data =
 matches.filter(
-m=>m["Season"]===season
+m => m["Season"] === season
 );
 
-let wins=0;
-let draws=0;
-let losses=0;
+let wins = 0;
+let draws = 0;
+let losses = 0;
 
-let gf=0;
-let ga=0;
+let gf = 0;
+let ga = 0;
 
-const goals={};
+let form = "";
 
-players.forEach(
-p=>goals[p]=0
-);
+const playerApps = {};
+const playerGoals = {};
+
+players.forEach(player=>{
+
+playerApps[player]=0;
+playerGoals[player]=0;
+
+});
 
 data.forEach(match=>{
 
@@ -236,37 +266,47 @@ match["Goals Against"]
 || 0
 );
 
-if(
-match["Result"]==="Win"
-) wins++;
+if(match["Result"]==="Win"){
 
-else if(
-match["Result"]==="Draw"
-) draws++;
+wins++;
+form += "🟢 ";
 
-else if(
-match["Result"]==="Loss"
-) losses++;
+}
+else if(match["Result"]==="Draw"){
+
+draws++;
+form += "🟡 ";
+
+}
+else if(match["Result"]==="Loss"){
+
+losses++;
+form += "🔴 ";
+
+}
 
 players.forEach(player=>{
 
-goals[player]+=
+if(
+match[player+" Appearance"]
+==="Y"
+){
+playerApps[player]++;
+}
 
+playerGoals[player] +=
 Number(
-match[
-player+" Goals"
-]||0
+match[player+" Goals"]
+|| 0
 );
 
 });
 
 });
 
-document
-.getElementById(
+document.getElementById(
 "summary"
-)
-.innerHTML=`
+).innerHTML = `
 
 <div class="stat">
 <h2>${data.length}</h2>
@@ -297,46 +337,48 @@ GF
 <h2>${ga}</h2>
 GA
 </div>
+
+<div class="stat">
+<h2>${gf-ga}</h2>
+GD
+</div>
+
 `;
 
+document.getElementById(
+"formGuide"
+).innerHTML =
+form;
+
 const top3 =
-Object.entries(goals)
+Object.entries(playerGoals)
 .sort((a,b)=>b[1]-a[1])
 .slice(0,3);
 
-document
-.getElementById(
+document.getElementById(
 "topScorers"
-)
-.innerHTML=`
+).innerHTML = `
 
-🥇 ${top3[0][0]}
-(${top3[0][1]})
+🥇 ${top3[0][0]} (${top3[0][1]})<br>
 
-<br><br>
+🥈 ${top3[1][0]} (${top3[1][1]})<br>
 
-🥈 ${top3[1][0]}
-(${top3[1][1]})
-
-<br><br>
-
-🥉 ${top3[2][0]}
-(${top3[2][1]})
+🥉 ${top3[2][0]} (${top3[2][1]})
 
 `;
 
-let html=`
+let matchHTML = `
 
 <table>
 
 <tr>
-
 <th>Date</th>
 <th>Opponent</th>
 <th>Venue</th>
+<th>Score</th>
 <th>Result</th>
 <th>Captain</th>
-
+<th>Goalscorers</th>
 </tr>
 
 `;
@@ -346,29 +388,54 @@ data
 .reverse()
 .forEach(match=>{
 
-html+=`
+let scorers = [];
+
+players.forEach(player=>{
+
+const goals =
+Number(
+match[player+" Goals"]
+|| 0
+);
+
+if(goals > 0){
+
+if(goals === 1){
+
+scorers.push(player);
+
+}else{
+
+scorers.push(
+player + " x" + goals
+);
+
+}
+
+}
+
+});
+
+matchHTML += `
 
 <tr>
 
-<td>
-${match["Date"]}
-</td>
+<td>${match["Date"]}</td>
+
+<td>${match["Opposition"]}</td>
+
+<td>${match["Venue"]}</td>
 
 <td>
-${match["Opposition"]}
+${match["Goals For"]}-
+${match["Goals Against"]}
 </td>
 
-<td>
-${match["Venue"]}
-</td>
+<td>${match["Result"]}</td>
 
-<td>
-${match["Result"]}
-</td>
+<td>${match["Captain"]}</td>
 
-<td>
-${match["Captain"]}
-</td>
+<td>${scorers.join(", ")}</td>
 
 </tr>
 
@@ -376,13 +443,67 @@ ${match["Captain"]}
 
 });
 
-html+="</table>";
+matchHTML += "</table>";
 
-document
-.getElementById(
+document.getElementById(
 "matches"
+).innerHTML =
+matchHTML;
+
+let playerHTML = `
+
+<table>
+
+<tr>
+<th>Player</th>
+<th>Apps</th>
+<th>Goals</th>
+</tr>
+
+`;
+
+players
+.map(player=>({
+
+name:player,
+
+apps:
+playerApps[player],
+
+goals:
+playerGoals[player]
+
+}))
+
+.sort((a,b)=>
+b.apps-a.apps
 )
-.innerHTML=html;
+
+.forEach(player=>{
+
+playerHTML += `
+
+<tr>
+
+<td>${player.name}</td>
+
+<td>${player.apps}</td>
+
+<td>${player.goals}</td>
+
+</tr>
+
+`;
+
+});
+
+playerHTML +=
+"</table>";
+
+document.getElementById(
+"playerStats"
+).innerHTML =
+playerHTML;
 
 }
 
