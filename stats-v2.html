@@ -2,19 +2,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Currie Star Test</title>
+<title>Currie Star Fetch Test</title>
 </head>
 
 <body>
 
-<h1>⚽ Currie Star Test</h1>
+<h1>⚽ Currie Star Fetch Test</h1>
 
 <div id="status">Loading...</div>
 
 <script>
 
+fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRFC3rT4TgF0dD4eNEaDrwjOtGlN8H9na1ONDicw_un_K5Q_fzi22TK7dFKKnKWJTrsqO6HXwYcpx79/pub?output=csv")
+.then(response => response.text())
+.then(text => {
+
 document.getElementById("status").innerHTML =
-"JavaScript is working";
+"SUCCESS - CSV length: " + text.length;
+
+})
+.catch(error => {
+
+document.getElementById("status").innerHTML =
+"ERROR: " + error;
+
+});
 
 </script>
 
