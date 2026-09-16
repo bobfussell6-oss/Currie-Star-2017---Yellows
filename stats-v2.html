@@ -41,13 +41,31 @@ padding:20px;
 }
 
 .card{
-background:white;
-border-radius:12px;
-padding:20px;
-margin-bottom:20px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
 
+background:white;
+
+border-radius:18px;
+
+padding:20px;
+
+margin-bottom:20px;
+
+box-shadow:
+0 6px 18px rgba(
+0,
+0,
+0,
+0.1
+);
+
+}
+.tableWrapper{
+
+overflow-x:auto;
+
+-webkit-overflow-scrolling:touch;
+
+}
 .stats{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
@@ -213,7 +231,10 @@ class="formGuide">
 
 <h2>📅 Match History</h2>
 
-<div id="matches"></div>
+<div
+class="tableWrapper"
+id="matches">
+</div>
 
 </div>
 
@@ -221,7 +242,10 @@ class="formGuide">
 
 <h2>👥 Player Statistics</h2>
 
-<div id="playerStats"></div>
+<div
+class="tableWrapper"
+id="playerStats">
+</div>
 
 </div>
 
