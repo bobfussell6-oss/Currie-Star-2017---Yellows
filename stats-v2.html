@@ -118,6 +118,28 @@ All Seasons
 
 </select>
 
+<br><br>
+
+<label><strong>Match Type</strong></label>
+
+<br><br>
+
+<select id="matchTypeSelect">
+
+<option selected>
+All
+</option>
+
+<option>
+League
+</option>
+
+<option>
+Friendly
+</option>
+
+</select>
+
 </div>
 
 <div class="card">
@@ -239,17 +261,36 @@ document
 "seasonSelect"
 ).value;
 
-let data;
+const matchType =
+document
+.getElementById(
+"matchTypeSelect"
+).value;
 
-if(season === "All Seasons"){
+let data = matches;
 
-data = matches;
-
-}else{
+if(season !== "All Seasons"){
 
 data =
-matches.filter(
+data.filter(
 m => m["Season"] === season
+);
+
+}
+document
+.getElementById(
+"matchTypeSelect"
+)
+.addEventListener(
+"change",
+render
+);
+  
+if(matchType !== "All"){
+
+data =
+data.filter(
+m => m["Match Type"] === matchType
 );
 
 }
