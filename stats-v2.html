@@ -303,6 +303,8 @@ let losses = 0;
 let gf = 0;
 let ga = 0;
 
+let cleanSheets = 0;
+
 let form = "";
 
 const playerApps = {};
@@ -326,6 +328,15 @@ ga += Number(
 match["Goals Against"]
 || 0
 );
+
+if(
+Number(
+match["Goals Against"]
+|| 0
+) === 0
+){
+cleanSheets++;
+}
 
 if(match["Result"]==="Win"){
 
@@ -402,6 +413,11 @@ GA
 <div class="stat">
 <h2>${gf-ga}</h2>
 GD
+</div>
+
+<div class="stat">
+<h2>${cleanSheets}</h2>
+CS
 </div>
 
 `;
