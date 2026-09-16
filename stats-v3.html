@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Currie Star 2017 Yellows</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+*margin:0;
+font-family:Arial,sans-s*rif;
+
+background:
+linear-gradient(*rgba(0,0,0,.55),
+rgba(0,0,0,.55)
+)*
+url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1600&q=80");
+
+*ackground-size:cover;
+background-p*sition:center;
+background-attachme*t:fixed;
+
+color:#111;
+
+}
+
+header{
+*background:
+linear-gradient(
+rgba(*,0,0,.45),
+rgba(0,0,0,.45)
+),
+url(*https://images.unsplash.com/photo-*522778119026-d647f0596c20?auto=for*at&fit=crop&w=1600&q=80");
+
+backgr*und-size:cover;
+background-positio*:center;
+
+padding:80px 20px;
+
+text*align:center;
+
+color:white;
+
+borde*-bottom:5px solid #ffd700;
+
+box-sh*dow:0 4px 20px rgba(0,0,0,.4);
+
+}
+*header h1{
+
+margin:0;
+font-size:42*x;
+
+}
+
+header p{
+
+margin-top:10px;*
+}
+
+.container{
+
+max-width:1400px;*margin:auto;
+padding:20px;
+
+}
+
+.ca*d{
+
+background:
+rgba(255,255,255,.*5);
+
+backdrop-filter:
+blur(8px);
+
+*order-radius:20px;
+
+padding:20px;
+*margin-bottom:25px;
+
+box-shadow:
+0*8px 25px rgba(
+0,
+0,
+0,
+0.25
+);
+
+}*
+.filters{
+
+display:grid;
+
+grid-te*plate-columns:
+repeat(
+auto-fit,
+m*nmax(220px,1fr)
+);
+
+gap:15px;
+
+}
+
+*abel{
+
+font-weight:bold;
+
+display:*lock;
+
+margin-bottom:8px;
+
+}
+
+sele*t{
+
+width:100%;
+
+padding:12px;
+
+bo*der-radius:10px;
+
+border:1px solid*#ddd;
+
+font-size:16px;
+
+}
+
+.stats{*
+display:grid;
+
+grid-template-colu*ns:
+repeat(
+auto-fit,
+minmax(120px*1fr)
+);
+
+gap:12px;
+
+}
+
+.stat{
+
+bac*ground:
+linear-gradient(
+135deg,
+#*057b8,
+#003d82
+);
+
+color:white;
+
+p*dding:20px;
+
+border-radius:16px;
+
+*ext-align:center;
+
+box-shadow:
+0 4*x 12px rgba(
+0,
+0,
+0,
+0.2
+);
+
+tran*ition:.2s;
+
+}
+
+.stat:hover{
+
+trans*orm:
+translateY(-3px);
+
+}
+
+.stat h*{
+
+margin:0;
+
+font-size:30px;
+
+}
+
+*podium{
+
+display:grid;
+
+grid-templ*te-columns:
+1fr 1fr 1fr;
+
+gap:10px*
+
+text-align:center;
+
+}
+
+.gold{
+
+b*ckground:#ffd700;
+color:black;
+
+pa*ding:20px;
+
+border-radius:15px;
+
+f*nt-weight:bold;
+
+}
+
+.silver{
+
+back*round:#c0c0c0;
+color:black;
+
+paddi*g:20px;
+
+border-radius:15px;
+
+font*weight:bold;
+
+}
+
+.bronze{
+
+backgro*nd:#cd7f32;
+color:white;
+
+padding:*0px;
+
+border-radius:15px;
+
+font-we*ght:bold;
+
+}
+
+.formGuide{
+
+font-size:28px;
+
+line-height:2;
+
+}
+
+.tableWrapper{
+
+overflow-x:auto;
+
+-webkit-overflow-scrolling:touch;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+background:white;
+
+min-width:1000px;
+
+}
+
+th{
+
+background:#0057b8;
+
+color:white;
+
+padding:10px;
+
+position:sticky;
+
+top:0;
+
+}
+
+td{
+
+padding:10px;
+
+border:1px solid #ddd;
+
+}
+
+.win{
+
+color:#00a651;
+
+font-weight:bold;
+
+}
+
+.draw{
+
+color:#f0ad4e;
+
+font-weight:bold;
+
+}
+
+.loss{
+
+color:#d9534f;
+
+font-weight:bold;
+
+}
+
+.sectionTitle{
+
+margin-top:0;
+
+color:#0057b8;
+
+}
+
+@media(max-width:768px){
+
+header h1{
+
+font-size:30px;
+
+}
+
+.podium{
+
+grid-template-columns:
+1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>
+⚽ Currie Star 2017 Yellows
+</h1>
+
+<p>
+🔵⚪ Club Statistics Dashboard ⚪🔵
+</p>
+
+<p>
+🏆 Developing Players • Tracking Progress • Celebrating Success 🏆
+</p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<div class="filters">
+
+<div>
+
+<label>
+Season
+</label>
+
+<select
+id="seasonSelect">
+
+<option selected>
+All Seasons
+</option>
+
+<option>
+1 - Beckham
+</option>
+
+<option>
+2 - Zidane
+</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+Match Type
+</label>
+
+<select
+id="matchTypeSelect">
+
+<option selected>
+All
+</option>
+
+<option>
+League
+</option>
+
+<option>
+Friendly
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="sectionTitle">
+📊 Season Summary
+</h2>
+
+<div
+class="stats"
+id="summary">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="sectionTitle">
+🏆 Top 3 Scorers
+</h2>
+
+<div id="topScorers">
+
+Loading...
+
+</div>
+
+</div>
+<div class="card">
+
+<h2 class="sectionTitle">
+🔥 Form Guide
+</h2>
+
+<div
+id="formGuide"
+class="formGuide">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="sectionTitle">
+📅 Match History
+</h2>
+
+<div
+class="tableWrapper"
+id="matches">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="sectionTitle">
+👥 Player Statistics
+</h2>
+
+<div
+class="tableWrapper"
+id="playerStats">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const players = [
+
+"Jamie",
+"Sam",
+"Francesco",
+"Thomas",
+"Freddy",
+"Magnus",
+"Oliver",
+"Finn",
+"Mohammad",
+"Luke",
+"Brodie",
+"Ben",
+"Reilly",
+"Jamie L"
+
+];
+
+const csvUrl =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vRFC3rT4TgF0dD4eNEaDrwjOtGlN8H9na1ONDicw_un_K5Q_fzi22TK7dFKKnKWJTrsqO6HXwYcpx79/pub?output=csv";
+
+let matches = [];
+
+fetch(csvUrl)
+
+.then(response => response.text())
+
+.then(text => {
+
+const rows =
+text.trim().split("\n");
+
+const headers =
+rows[0].split(",");
+
+matches =
+rows.slice(1).map(row => {
+
+const values =
+row.split(",");
+
+let obj = {};
+
+headers.forEach((header,index)=>{
+
+obj[header.trim()] =
+values[index]
+? values[index].trim()
+: "";
+
+});
+
+return obj;
+
+});
+
+render();
+
+});
+
+function render(){
+
+const season =
+document
+.getElementById(
+"seasonSelect"
+)
+.value;
+
+const matchType =
+document
+.getElementById(
+"matchTypeSelect"
+)
+.value;
+
+let data = matches;
+
+if(
+season !== "All Seasons"
+){
+
+data =
+data.filter(
+m =>
+m["Season"] === season
+);
+
+}
+
+if(
+matchType !== "All"
+){
+
+data =
+data.filter(
+m =>
+m["Match Type"] === matchType
+);
+
+}
+
+let wins = 0;
+let draws = 0;
+let losses = 0;
+
+let gf = 0;
+let ga = 0;
+
+let cleanSheets = 0;
+
+let form = "";
+
+const playerApps = {};
+const playerGoals = {};
+
+players.forEach(player=>{
+
+playerApps[player] = 0;
+playerGoals[player] = 0;
+
+});
+
+data.forEach(match=>{
+
+gf += Number(
+match["Goals For"] || 0
+);
+
+ga += Number(
+match["Goals Against"] || 0
+);
+
+if(
+Number(
+match["Goals Against"] || 0
+) === 0
+){
+cleanSheets++;
+}
+
+if(match["Result"]==="Win"){
+wins++;
+form += "🟢W ";
+}
+else if(match["Result"]==="Draw"){
+draws++;
+form += "🟡D ";
+}
+else if(match["Result"]==="Loss"){
+losses++;
+form += "🔴L ";
+}
+
+players.forEach(player=>{
+
+if(
+match[
+player + " Appearance"
+] === "Y"
+){
+playerApps[player]++;
+}
+
+playerGoals[player] += Number(
+match[
+player + " Goals"
+] || 0
+);
+
+});
+
+});
+document.getElementById(
+"summary"
+).innerHTML = `
+
+<div class="stat">
+<h2>${data.length}</h2>
+⚽ Games
+</div>
+
+<div class="stat">
+<h2>${wins}</h2>
+🏆 Wins
+</div>
+
+<div class="stat">
+<h2>${draws}</h2>
+🤝 Draws
+</div>
+
+<div class="stat">
+<h2>${losses}</h2>
+❌ Losses
+</div>
+
+<div class="stat">
+<h2>${gf}</h2>
+🎯 GF
+</div>
+
+<div class="stat">
+<h2>${ga}</h2>
+🧤 GA
+</div>
+
+<div class="stat">
+<h2>${gf-ga}</h2>
+📈 GD
+</div>
+
+<div class="stat">
+<h2>${cleanSheets}</h2>
+🔒 CS
+</div>
+
+`;
+
+document.getElementById(
+"formGuide"
+).innerHTML =
+form || "No Matches";
+
+const top3 =
+Object.entries(playerGoals)
+.sort((a,b)=>b[1]-a[1])
+.slice(0,3);
+
+document.getElementById(
+"topScorers"
+).innerHTML = `
+
+<div class="podium">
+
+<div class="silver">
+🥈<br>
+${top3[1]?.[0] || "-"}
+<br><br>
+${top3[1]?.[1] || 0}
+Goals
+</div>
+
+<div class="gold">
+🥇<br>
+${top3[0]?.[0] || "-"}
+<br><br>
+${top3[0]?.[1] || 0}
+Goals
+</div>
+
+<div class="bronze">
+🥉<br>
+${top3[2]?.[0] || "-"}
+<br><br>
+${top3[2]?.[1] || 0}
+Goals
+</div>
+
+</div>
+
+`;
+
+let matchHTML = `
+
+<table>
+
+<tr>
+
+<th>Season</th>
+<th>Date</th>
+<th>Type</th>
+<th>Opponent</th>
+<th>Venue</th>
+<th>Score</th>
+<th>Result</th>
+<th>Captain</th>
+<th>Goalscorers</th>
+
+</tr>
+
+`;
+
+data
+.slice()
+.reverse()
+.forEach(match=>{
+
+let scorers = [];
+
+let assignedGoals = 0;
+
+players.forEach(player=>{
+
+const goals =
+Number(
+match[
+player + " Goals"
+] || 0
+);
+
+assignedGoals += goals;
+
+if(goals > 0){
+
+if(goals === 1){
+
+scorers.push(player);
+
+}else{
+
+scorers.push(
+player + " x" + goals
+);
+
+}
+
+}
+
+});
+
+const totalGoals =
+Number(
+match["Goals For"] || 0
+);
+
+const ownGoals =
+totalGoals - assignedGoals;
+
+if(ownGoals > 0){
+
+if(ownGoals === 1){
+
+scorers.push(
+"Own Goal"
+);
+
+}else{
+
+scorers.push(
+"Own Goals x" +
+ownGoals
+);
+
+}
+
+}
+
+let resultClass = "";
+
+if(
+match["Result"] === "Win"
+){
+resultClass = "win";
+}
+else if(
+match["Result"] === "Draw"
+){
+resultClass = "draw";
+}
+else{
+resultClass = "loss";
+}
+
+matchHTML += `
+
+<tr>
+
+<td>
+${match["Season"]}
+</td>
+
+<td>
+${match["Date"]}
+</td>
+
+<td>
+${match["Match Type"]}
+</td>
+
+<td>
+${match["Opposition"]}
+</td>
+
+<td>
+${match["Venue"]}
+</td>
+
+<td>
+${match["Goals For"]} -
+${match["Goals Against"]}
+</td>
+
+<td class="${resultClass}">
+${match["Result"]}
+</td>
+
+<td>
+${match["Captain"]}
+</td>
+
+<td>
+${scorers.join(", ")}
+</td>
+
+</tr>
+
+`;
+
+});
+
+matchHTML +=
+"</table>";
+
+document.getElementById(
+"matches"
+).innerHTML =
+matchHTML;
+
+let playerHTML = `
+
+<table>
+
+<tr>
+
+<th>Player</th>
+<th>Apps</th>
+<th>Goals</th>
+
+</tr>
+
+`;
+
+players
+.map(player=>({
+
+name:player,
+
+apps:
+playerApps[player],
+
+goals:
+playerGoals[player]
+
+}))
+
+.sort((a,b)=>{
+
+if(
+b.apps === a.apps
+){
+return b.goals - a.goals;
+}
+
+return b.apps - a.apps;
+
+})
+
+.forEach(player=>{
+
+playerHTML += `
+
+<tr>
+
+<td>
+${player.name}
+</td>
+
+<td>
+${player.apps}
+</td>
+
+<td>
+${player.goals}
+</td>
+
+</tr>
+
+`;
+
+});
+
+playerHTML +=
+"</table>";
+
+document.getElementById(
+"playerStats"
+).innerHTML =
+playerHTML;
+
+}
+
+document
+.getElementById(
+"seasonSelect"
+)
+.addEventListener(
+"change",
+render
+);
+
+document
+.getElementById(
+"matchTypeSelect"
+)
+.addEventListener(
+"change",
+render
+);
+
+</script>
+
+</body>
+
+</html>
