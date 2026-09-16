@@ -20,11 +20,7 @@ rgba(0,0,0,.65),
 rgba(0,0,0,.65)
 ),
 
-url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1600&q=80");
-
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
+url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=formatfixed;
 
 color:#222;
 
@@ -48,8 +44,7 @@ text-align:center;
 
 color:white;
 
-border-bottom:
-5px solid gold;
+border-bottom:5px solid gold;
 
 }
 
@@ -124,7 +119,7 @@ transition:0.2s;
 transform:translateY(-3px);
 
 }
-``
+
 .stat h2{
 margin:0;
 }
@@ -158,7 +153,75 @@ font-size:32px;
 font-size:20px;
 line-height:1.8;
 }
+.podium{
 
+display:grid;
+
+grid-template-columns:
+1fr 1fr 1fr;
+
+gap:10px;
+
+text-align:center;
+
+}
+
+.gold{
+
+background:#FFD700;
+
+padding:15px;
+
+border-radius:15px;
+
+color:black;
+
+font-weight:bold;
+
+box-shadow:
+0 4px 10px rgba(
+0,0,0,.25
+);
+
+}
+
+.silver{
+
+background:#C0C0C0;
+
+padding:15px;
+
+border-radius:15px;
+
+color:black;
+
+font-weight:bold;
+
+box-shadow:
+0 4px 10px rgba(
+0,0,0,.25
+);
+
+}
+
+.bronze{
+
+background:#CD7F32;
+
+padding:15px;
+
+border-radius:15px;
+
+color:white;
+
+font-weight:bold;
+
+box-shadow:
+0 4px 10px rgba(
+0,0,0,.25
+);
+
+}
 </style>
 </head>
 
@@ -517,11 +580,30 @@ document.getElementById(
 "topScorers"
 ).innerHTML = `
 
-🥇 ${top3[0][0]} (${top3[0][1]})<br>
+<div class="podium">
 
-🥈 ${top3[1][0]} (${top3[1][1]})<br>
+<div class="silver">
+🥈<br>
+${top3[1]?.[0] || "-"}
+<br>
+${top3[1]?.[1] || 0}
+</div>
 
-🥉 ${top3[2][0]} (${top3[2][1]})
+<div class="gold">
+🥇<br>
+${top3[0]?.[0] || "-"}
+<br>
+${top3[0]?.[1] || 0}
+</div>
+
+<div class="bronze">
+🥉<br>
+${top3[2]?.[0] || "-"}
+<br>
+${top3[2]?.[1] || 0}
+</div>
+
+</div>
 
 `;
 
