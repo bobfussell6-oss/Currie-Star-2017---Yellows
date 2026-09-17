@@ -261,7 +261,7 @@ table{
 width:100%;
 border-collapse:collapse;
 color:white;
-font-size:14px;
+font-size:13px;
 }
 
 th{
@@ -279,10 +279,6 @@ vertical-align:top;
 }
 
 @media(max-width:768px){
-
-table{
-font-size:11px;
-}
 
 th{
 font-size:10px;
@@ -760,15 +756,12 @@ let matchHTML = `
 
 <tr>
 
-<th>Season</th>
 <th>Date</th>
-<th>Type</th>
-<th>Opponent</th>
-<th>Venue</th>
+<th>T</th>
+<th>Opposition</th>
 <th>Score</th>
-<th>Result</th>
 <th>Captain</th>
-<th>Goalscorers</th>
+<th>Goals</th>
 
 </tr>
 
@@ -855,42 +848,47 @@ else{
 resultClass = "loss";
 }
 
+const shortType =
+match["Match Type"] === "League"
+? "L"
+: "F";
+
+const venueCode =
+match["Venue"] === "Home"
+? "H"
+: "A";
+
+const scoreColour =
+match["Result"] === "Win"
+? "win"
+: match["Result"] === "Draw"
+? "draw"
+: "loss";
+
+const shortDate =
+match["Date"].length >= 10
+? match["Date"].substring(0,8) +
+match["Date"].substring(10)
+: match["Date"];
+
 matchHTML += `
 
 <tr>
 
 <td>
-${match["Season"]}
+${shortDate}
 </td>
 
 <td>
-${match["Date"]}
+${shortType}
 </td>
 
 <td>
-${match["Match Type"]}
+${match["Opposition"]} (${venueCode})
 </td>
 
-<td>
-${match["Opposition"]}
-(${
-match["Venue"] === "Home"
-? "H"
-: "A"
-})
-</td>
-
-<td>
-${match["Venue"]}
-</td>
-
-<td>
-${match["Goals For"]} -
-${match["Goals Against"]}
-</td>
-
-<td class="${resultClass}">
-${match["Result"]}
+<td class="${scoreColour}">
+${match["Goals For"]}-${match["Goals Against"]}
 </td>
 
 <td>
