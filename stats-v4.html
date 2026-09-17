@@ -325,19 +325,19 @@ table{
 width:100%;
 border-collapse:collapse;
 color:white;
-font-size:13px;
+font-size:15px;
 }
 
 th{
 background:#0057b8;
-padding:8px;
-font-size:12px;
+padding:10px;
+font-size:14px;
 white-space:nowrap;
 }
 
 td{
-padding:8px;
-font-size:12px;
+padding:10px;
+font-size:14px;
 border-bottom:1px solid #2c3b4f;
 vertical-align:top;
 }
@@ -345,13 +345,13 @@ vertical-align:top;
 @media(max-width:768px){
 
 th{
-font-size:10px;
-padding:6px;
+font-size:13px;
+padding:8px;
 }
 
 td{
-font-size:10px;
-padding:6px;
+font-size:13px;
+padding:8px;
 }
 
 }
@@ -359,16 +359,24 @@ padding:6px;
 .win{
 color:#00c853;
 font-weight:bold;
+font-size:18px;
 }
 
 .draw{
 color:#f5a623;
 font-weight:bold;
+font-size:18px;
 }
 
 .loss{
 color:#ff5252;
 font-weight:bold;
+font-size:18px;
+}
+
+td:nth-child(5){
+font-weight:bold;
+color:#ffffff;
 }
 
 @media(max-width:768px){
@@ -402,6 +410,12 @@ font-size:12px;
 
 .goalCount{
 font-size:22px;
+}
+
+.win,
+.draw,
+.loss{
+font-size:16px;
 }
 
 }
