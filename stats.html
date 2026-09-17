@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Currie Star 2017 Yellows</title>
+
+<style>
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Inter,Arial,sans-serif;
+background:
+linear-gradient(
+180deg,
+#07111f 0%,
+#0b1d35 50%,
+#10294f 100%
+);
+color:#f5f7fa;
+}
+
+header{
+background:
+linear-gradient(
+135deg,
+#0057b8,
+#003a7a
+);
+
+padding:40px 20px;
+
+text-align:center;
+
+border-bottom:
+4px solid #ffd700;
+
+box-shadow:
+0 4px 18px rgba(
+0,
+0,
+0,
+0.35
+);
+}
+
+header h1{
+margin:0;
+font-size:2.2rem;
+}
+
+header p{
+margin-top:10px;
+opacity:.9;
+}
+
+.container{
+max-width:1400px;
+margin:auto;
+padding:16px;
+}
+
+.card{
+background:#131d2c;
+border-radius:18px;
+padding:18px;
+margin-bottom:16px;
+box-shadow:
+0 6px 18px rgba(
+0,
+0,
+0,
+0.25
+);
+}
+
+.card h2{
+margin-top:0;
+color:#ffffff;
+}
+
+.filters{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+gap:12px;
+}
+
+label{
+display:block;
+margin-bottom:8px;
+font-weight:bold;
+color:#c7d4e3;
+}
+
+select{
+width:100%;
+padding:12px;
+border-radius:12px;
+border:none;
+background:#1f2c3f;
+color:white;
+font-size:16px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(140px,1fr));
+gap:12px;
+}
+
+.stat{
+background:#1a2738;
+border-left:
+5px solid #0057b8;
+
+padding:16px;
+
+border-radius:14px;
+}
+
+.stat h2{
+margin:0;
+font-size:30px;
+color:white;
+}
+
+.statLabel{
+color:#9fb3c8;
+font-size:13px;
+}
+
+.podiumRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:14px;
+
+margin-bottom:10px;
+
+border-radius:14px;
+
+font-weight:bold;
+}
+
+.gold{
+background:#6f5800;
+}
+
+.silver{
+background:#4f5765;
+}
+
+.bronze{
+background:#664024;
+}
+
+.scorerGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:12px;
+
+}
+
+.scorerTile{
+
+padding:16px;
+
+border-radius:16px;
+
+text-align:center;
+
+box-shadow:
+0 4px 12px rgba(
+0,
+0,
+0,
+0.25
+);
+
+}
+
+.medal{
+
+font-size:26px;
+
+margin-bottom:8px;
+
+}
+
+.playerName{
+
+font-weight:bold;
+
+font-size:16px;
+
+margin-bottom:10px;
+
+}
+
+.goalCount{
+
+font-size:34px;
+
+font-weight:bold;
+
+}
+
+.goalLabel{
+
+font-size:12px;
+
+opacity:.8;
+
+}
+
+ 
+.formGuide{
+
+display:flex;
+
+gap:10px;
+
+align-items:center;
+
+}
+
+.formChip{
+
+width:40px;
+height:40px;
+
+border-radius:10px;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+font-weight:bold;
+
+font-size:18px;
+
+color:white;
+
+}
+
+.formWin{
+background:#00c853;
+}
+
+.formDraw{
+background:#f5a623;
+}
+
+.formLoss{
+background:#ff5252;
+}
+
+.matchCard{
+background:#1a2738;
+
+border-radius:16px;
+
+padding:16px;
+
+margin-bottom:12px;
+
+border-left:
+5px solid #0057b8;
+}
+
+.matchHeader{
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+
+font-size:13px;
+
+color:#9fb3c8;
+}
+
+.matchOpponent{
+font-size:20px;
+font-weight:bold;
+margin-top:8px;
+}
+
+.matchScore{
+font-size:34px;
+font-weight:bold;
+margin:12px 0;
+}
+
+.matchWin{
+color:#00c853;
+font-weight:bold;
+}
+
+.matchDraw{
+color:#f5a623;
+font-weight:bold;
+}
+
+.matchLoss{
+color:#ff5252;
+font-weight:bold;
+}
+
+.matchMeta{
+margin-top:8px;
+font-size:14px;
+line-height:1.6;
+color:#dce6f2;
+}
+
+.tableWrapper{
+overflow-x:auto;
+-webkit-overflow-scrolling:touch;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+color:white;
+font-size:15px;
+}
+
+th{
+background:#0057b8;
+padding:10px;
+font-size:14px;
+white-space:nowrap;
+}
+
+td{
+padding:10px;
+font-size:14px;
+border-bottom:1px solid #2c3b4f;
+vertical-align:top;
+}
+
+@media(max-width:768px){
+
+th{
+font-size:13px;
+padding:8px;
+}
+
+td{
+font-size:13px;
+padding:8px;
+}
+
+}
+
+.win{
+color:#00c853;
+font-weight:bold;
+font-size:18px;
+}
+
+.draw{
+color:#f5a623;
+font-weight:bold;
+font-size:18px;
+}
+
+.loss{
+color:#ff5252;
+font-weight:bold;
+font-size:18px;
+}
+
+td:nth-child(5){
+font-weight:bold;
+color:#ffffff;
+}
+
+@media(max-width:768px){
+
+header h1{
+font-size:1.7rem;
+}
+
+.stats{
+grid-template-columns:
+repeat(2,1fr);
+}
+
+.matchScore{
+font-size:26px;
+}
+
+.scorerGrid{
+grid-template-columns:
+repeat(3,1fr);
+gap:6px;
+}
+
+.scorerTile{
+padding:10px;
+}
+
+.playerName{
+font-size:12px;
+}
+
+.goalCount{
+font-size:22px;
+}
+
+.win,
+.draw,
+.loss{
+font-size:16px;
+}
+
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>
+⚽ Currie Star 2017 Yellows
+</h1>
+
+<p>
+🔵⚪ Club Statistics Dashboard ⚪🔵
+</p>
+
+<p>
+🏆 Developing Players • Tracking Progress • Celebrating Success 🏆
+</p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<div class="filters">
+
+<div>
+
+<label>
+Season
+</label>
+
+<select
+id="seasonSelect">
+
+<option selected>
+All Seasons
+</option>
+
+<option>
+1 - Beckham
+</option>
+
+<option>
+2 - Zidane
+</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+Match Type
+</label>
+
+<select
+id="matchTypeSelect">
+
+<option selected>
+All
+</option>
+
+<option>
+League
+</option>
+
+<option>
+Friendly
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="sectionTitle">
+📊 Season Summary
+</h2>
+
+<div
+class="stats"
+id="summary">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="sectionTitle">
+🏆 Top 3 Scorers
+</h2>
+
+<div id="topScorers">
+
+Loading...
+
+</div>
+
+</div>
+<div class="card">
+
+<h2 class="sectionTitle">
+📈 Recent Form (Last 6)
+</h2>
+
+<div
+id="formGuide"
+class="formGuide">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="sectionTitle">
+📅 Match History
+</h2>
+
+<div
+class="tableWrapper"
+id="matches">
+
+Loading...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="sectionTitle">
+👥 Player Statistics
+</h2>
+
+<div
+class="tableWrapper"
+id="playerStats">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const players = [
+
+"Jamie",
+"Sam",
+"Francesco",
+"Thomas",
+"Freddy",
+"Magnus",
+"Oliver",
+"Finn",
+"Mohammad",
+"Luke",
+"Brodie",
+"Ben",
+"Reilly",
+"Jamie L"
+
+];
+
+const csvUrl =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vRFC3rT4TgF0dD4eNEaDrwjOtGlN8H9na1ONDicw_un_K5Q_fzi22TK7dFKKnKWJTrsqO6HXwYcpx79/pub?output=csv";
+
+let matches = [];
+
+fetch(csvUrl)
+
+.then(response => response.text())
+
+.then(text => {
+
+const rows =
+text.trim().split("\n");
+
+const headers =
+rows[0].split(",");
+
+matches =
+rows.slice(1).map(row => {
+
+const values =
+row.split(",");
+
+let obj = {};
+
+headers.forEach((header,index)=>{
+
+obj[header.trim()] =
+values[index]
+? values[index].trim()
+: "";
+
+});
+
+return obj;
+
+});
+
+render();
+
+});
+
+function render(){
+
+const season =
+document
+.getElementById(
+"seasonSelect"
+)
+.value;
+
+const matchType =
+document
+.getElementById(
+"matchTypeSelect"
+)
+.value;
+
+let data = matches;
+
+if(
+season !== "All Seasons"
+){
+
+data =
+data.filter(
+m =>
+m["Season"] === season
+);
+
+}
+
+if(
+matchType !== "All"
+){
+
+data =
+data.filter(
+m =>
+m["Match Type"] === matchType
+);
+
+}
+
+let wins = 0;
+let draws = 0;
+let losses = 0;
+
+let gf = 0;
+let ga = 0;
+
+let cleanSheets = 0;
+
+let formResults = [];
+
+const playerApps = {};
+const playerGoals = {};
+
+players.forEach(player=>{
+
+playerApps[player] = 0;
+playerGoals[player] = 0;
+
+});
+
+data.forEach(match=>{
+
+gf += Number(
+match["Goals For"] || 0
+);
+
+ga += Number(
+match["Goals Against"] || 0
+);
+
+if(
+Number(
+match["Goals Against"] || 0
+) === 0
+){
+cleanSheets++;
+}
+
+if(match["Result"]==="Win"){
+wins++;
+formResults.push("W");
+}
+else if(match["Result"]==="Draw"){
+draws++;
+formResults.push("D");
+}
+else if(match["Result"]==="Loss"){
+losses++;
+formResults.push("L");
+}
+players.forEach(player=>{
+
+if(
+match[
+player + " Appearance"
+] === "Y"
+){
+playerApps[player]++;
+}
+
+playerGoals[player] += Number(
+match[
+player + " Goals"
+] || 0
+);
+
+});
+
+});
+document.getElementById(
+"summary"
+).innerHTML = `
+
+<div class="stat">
+<h2>${data.length}</h2>
+⚽ Games
+</div>
+
+<div class="stat">
+<h2>${wins}</h2>
+🏆 Wins
+</div>
+
+<div class="stat">
+<h2>${draws}</h2>
+🤝 Draws
+</div>
+
+<div class="stat">
+<h2>${losses}</h2>
+❌ Losses
+</div>
+
+<div class="stat">
+<h2>${gf}</h2>
+🎯 GF
+</div>
+
+<div class="stat">
+<h2>${ga}</h2>
+🧤 GA
+</div>
+
+<div class="stat">
+<h2>${gf-ga}</h2>
+📈 GD
+</div>
+
+<div class="stat">
+<h2>${cleanSheets}</h2>
+🔒 CS
+</div>
+
+`;
+
+const lastSix =
+formResults.slice(-6);
+
+let formHTML = "";
+
+lastSix.forEach(result=>{
+
+let cls = "";
+
+if(result==="W"){
+cls = "formWin";
+}
+else if(result==="D"){
+cls = "formDraw";
+}
+else{
+cls = "formLoss";
+}
+
+formHTML += `
+<div class="formChip ${cls}">
+${result}
+</div>
+`;
+
+});
+
+document.getElementById(
+"formGuide"
+).innerHTML =
+formHTML;
+
+const top3 =
+Object.entries(playerGoals)
+.sort((a,b)=>b[1]-a[1])
+.slice(0,3);
+
+document.getElementById(
+"topScorers"
+).innerHTML = `
+
+<div class="scorerGrid">
+
+<div class="scorerTile gold">
+
+<div class="medal">
+🥇
+</div>
+
+<div class="playerName">
+${top3[0]?.[0] || "-"}
+</div>
+
+<div class="goalCount">
+${top3[0]?.[1] || 0}
+</div>
+
+<div class="goalLabel">
+Goals
+</div>
+
+</div>
+
+<div class="scorerTile silver">
+
+<div class="medal">
+🥈
+</div>
+
+<div class="playerName">
+${top3[1]?.[0] || "-"}
+</div>
+
+<div class="goalCount">
+${top3[1]?.[1] || 0}
+</div>
+
+<div class="goalLabel">
+Goals
+</div>
+
+</div>
+
+<div class="scorerTile bronze">
+
+<div class="medal">
+🥉
+</div>
+
+<div class="playerName">
+${top3[2]?.[0] || "-"}
+</div>
+
+<div class="goalCount">
+${top3[2]?.[1] || 0}
+</div>
+
+<div class="goalLabel">
+Goals
+</div>
+
+</div>
+
+</div>
+
+`;
+
+let matchHTML = `
+
+<table>
+
+<tr>
+
+<th>Date</th>
+<th>T</th>
+<th>Opposition</th>
+<th>Score</th>
+<th>Captain</th>
+<th>Goals</th>
+
+</tr>
+
+`;
+
+data
+.slice()
+.reverse()
+.forEach(match=>{
+
+let scorers = [];
+
+let assignedGoals = 0;
+
+players.forEach(player=>{
+
+const goals =
+Number(
+match[
+player + " Goals"
+] || 0
+);
+
+assignedGoals += goals;
+
+if(goals > 0){
+
+if(goals === 1){
+
+scorers.push(player);
+
+}else{
+
+scorers.push(
+player + " x" + goals
+);
+
+}
+
+}
+
+});
+
+const totalGoals =
+Number(
+match["Goals For"] || 0
+);
+
+const ownGoals =
+totalGoals - assignedGoals;
+
+if(ownGoals > 0){
+
+if(ownGoals === 1){
+
+scorers.push(
+"Own Goal"
+);
+
+}else{
+
+scorers.push(
+"Own Goals x" +
+ownGoals
+);
+
+}
+
+}
+
+let resultClass = "";
+
+if(
+match["Result"] === "Win"
+){
+resultClass = "win";
+}
+else if(
+match["Result"] === "Draw"
+){
+resultClass = "draw";
+}
+else{
+resultClass = "loss";
+}
+
+const shortType =
+match["Match Type"] === "League"
+? "L"
+: "F";
+
+const venueCode =
+match["Venue"] === "Home"
+? "H"
+: "A";
+
+const scoreColour =
+match["Result"] === "Win"
+? "win"
+: match["Result"] === "Draw"
+? "draw"
+: "loss";
+
+const shortDate =
+match["Date"].length >= 10
+? match["Date"].substring(0,8) +
+match["Date"].substring(10)
+: match["Date"];
+
+matchHTML += `
+
+<tr>
+
+<td>
+${shortDate}
+</td>
+
+<td>
+${shortType}
+</td>
+
+<td>
+${match["Opposition"]} (${venueCode})
+</td>
+
+<td class="${scoreColour}">
+${match["Goals For"]}-${match["Goals Against"]}
+</td>
+
+<td>
+${match["Captain"]}
+</td>
+
+<td>
+${scorers.join(", ")}
+</td>
+
+</tr>
+
+`;
+
+});
+
+matchHTML +=
+"</table>";
+
+document.getElementById(
+  
+"matches"
+).innerHTML =
+matchHTML;
+
+let playerHTML = `
+
+<table>
+
+<tr>
+
+<th>Player</th>
+<th>Apps</th>
+<th>Goals</th>
+
+</tr>
+
+`;
+
+players
+.map(player=>({
+
+name:player,
+
+apps:
+playerApps[player],
+
+goals:
+playerGoals[player]
+
+}))
+
+.sort((a,b)=>{
+
+if(
+b.apps === a.apps
+){
+return b.goals - a.goals;
+}
+
+return b.apps - a.apps;
+
+})
+
+.forEach(player=>{
+
+playerHTML += `
+
+<tr>
+
+<td>
+${player.name}
+</td>
+
+<td>
+${player.apps}
+</td>
+
+<td>
+${player.goals}
+</td>
+
+</tr>
+
+`;
+
+});
+
+playerHTML +=
+"</table>";
+
+document.getElementById(
+"playerStats"
+).innerHTML =
+playerHTML;
+
+}
+
+document
+.getElementById(
+"seasonSelect"
+)
+.addEventListener(
+"change",
+render
+);
+
+document
+.getElementById(
+"matchTypeSelect"
+)
+.addEventListener(
+"change",
+render
+);
+
+</script>
+
+</body>
+
+</html>
