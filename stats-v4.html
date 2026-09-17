@@ -261,17 +261,39 @@ table{
 width:100%;
 border-collapse:collapse;
 color:white;
+font-size:14px;
 }
 
 th{
 background:#0057b8;
-padding:12px;
+padding:8px;
+font-size:12px;
+white-space:nowrap;
 }
 
 td{
-padding:12px;
-border-bottom:
-1px solid #2c3b4f;
+padding:8px;
+font-size:12px;
+border-bottom:1px solid #2c3b4f;
+vertical-align:top;
+}
+
+@media(max-width:768px){
+
+table{
+font-size:11px;
+}
+
+th{
+font-size:10px;
+padding:6px;
+}
+
+td{
+font-size:10px;
+padding:6px;
+}
+
 }
 
 .win{
@@ -851,6 +873,11 @@ ${match["Match Type"]}
 
 <td>
 ${match["Opposition"]}
+(${
+match["Venue"] === "Home"
+? "H"
+: "A"
+})
 </td>
 
 <td>
