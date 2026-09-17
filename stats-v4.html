@@ -163,6 +163,70 @@ background:#4f5765;
 background:#664024;
 }
 
+.scorerGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:12px;
+
+}
+
+.scorerTile{
+
+padding:16px;
+
+border-radius:16px;
+
+text-align:center;
+
+box-shadow:
+0 4px 12px rgba(
+0,
+0,
+0,
+0.25
+);
+
+}
+
+.medal{
+
+font-size:26px;
+
+margin-bottom:8px;
+
+}
+
+.playerName{
+
+font-weight:bold;
+
+font-size:16px;
+
+margin-bottom:10px;
+
+}
+
+.goalCount{
+
+font-size:34px;
+
+font-weight:bold;
+
+}
+
+.goalLabel{
+
+font-size:12px;
+
+opacity:.8;
+
+}
+
+ 
 .formGuide{
 display:flex;
 flex-wrap:wrap;
@@ -320,6 +384,24 @@ repeat(2,1fr);
 
 .matchScore{
 font-size:26px;
+}
+
+.scorerGrid{
+grid-template-columns:
+repeat(3,1fr);
+gap:6px;
+}
+
+.scorerTile{
+padding:10px;
+}
+
+.playerName{
+font-size:12px;
+}
+
+.goalCount{
+font-size:22px;
 }
 
 }
@@ -720,30 +802,66 @@ document.getElementById(
 "topScorers"
 ).innerHTML = `
 
-<div class="podium">
+<div class="scorerGrid">
 
-<div class="silver">
-🥈<br>
-${top3[1]?.[0] || "-"}
-<br><br>
-${top3[1]?.[1] || 0}
-Goals
+<div class="scorerTile gold">
+
+<div class="medal">
+🥇
 </div>
 
-<div class="gold">
-🥇<br>
+<div class="playerName">
 ${top3[0]?.[0] || "-"}
-<br><br>
+</div>
+
+<div class="goalCount">
 ${top3[0]?.[1] || 0}
+</div>
+
+<div class="goalLabel">
 Goals
 </div>
 
-<div class="bronze">
-🥉<br>
-${top3[2]?.[0] || "-"}
-<br><br>
-${top3[2]?.[1] || 0}
+</div>
+
+<div class="scorerTile silver">
+
+<div class="medal">
+🥈
+</div>
+
+<div class="playerName">
+${top3[1]?.[0] || "-"}
+</div>
+
+<div class="goalCount">
+${top3[1]?.[1] || 0}
+</div>
+
+<div class="goalLabel">
 Goals
+</div>
+
+</div>
+
+<div class="scorerTile bronze">
+
+<div class="medal">
+🥉
+</div>
+
+<div class="playerName">
+${top3[2]?.[0] || "-"}
+</div>
+
+<div class="goalCount">
+${top3[2]?.[1] || 0}
+</div>
+
+<div class="goalLabel">
+Goals
+</div>
+
 </div>
 
 </div>
@@ -909,6 +1027,7 @@ matchHTML +=
 "</table>";
 
 document.getElementById(
+  
 "matches"
 ).innerHTML =
 matchHTML;
