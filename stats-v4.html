@@ -228,23 +228,33 @@ opacity:.8;
 
  
 .formGuide{
+
 display:flex;
-flex-wrap:wrap;
-gap:8px;
+
+gap:10px;
+
+align-items:center;
+
 }
 
 .formChip{
-width:42px;
-height:42px;
 
-border-radius:50%;
+width:40px;
+height:40px;
+
+border-radius:10px;
 
 display:flex;
+
 justify-content:center;
 align-items:center;
 
 font-weight:bold;
+
+font-size:18px;
+
 color:white;
+
 }
 
 .formWin{
@@ -694,7 +704,7 @@ let ga = 0;
 
 let cleanSheets = 0;
 
-let form = "";
+let formResults = [];
 
 const playerApps = {};
 const playerGoals = {};
@@ -726,17 +736,16 @@ cleanSheets++;
 
 if(match["Result"]==="Win"){
 wins++;
-form += "🟢W ";
+formResults.push("W");
 }
 else if(match["Result"]==="Draw"){
 draws++;
-form += "🟡D ";
+formResults.push("D");
 }
 else if(match["Result"]==="Loss"){
 losses++;
-form += "🔴L ";
+formResults.push("L");
 }
-
 players.forEach(player=>{
 
 if(
@@ -802,10 +811,37 @@ document.getElementById(
 
 `;
 
+const lastSix =
+formResults.slice(-6);
+
+let formHTML = "";
+
+lastSix.forEach(result=>{
+
+let cls = "";
+
+if(result==="W"){
+cls = "formWin";
+}
+else if(result==="D"){
+cls = "formDraw";
+}
+else{
+cls = "formLoss";
+}
+
+formHTML += `
+<div class="formChip ${cls}">
+${result}
+</div>
+`;
+
+});
+
 document.getElementById(
 "formGuide"
 ).innerHTML =
-form || "No Matches";
+formHTML;
 
 const top3 =
 Object.entries(playerGoals)
