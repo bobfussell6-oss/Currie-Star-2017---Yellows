@@ -663,12 +663,26 @@ let matchHTML = `
 
 data.slice().reverse().forEach(match => {
   let scorers = [];
+  let assignedGoals = 0;
+
   players.forEach(player => {
     const goals = Number(match[player + " Goals"] || 0);
     if(goals > 0){
       scorers.push(goals === 1 ? player : `${player} x${goals}`);
+      assignedGoals += goals;
     }
   });
+
+  const totalGoals = Number(match["Goals For"] || 0);
+  const ownGoals = totalGoals - assignedGoals;
+
+  if(ownGoals > 0){
+    if(ownGoals === 1){
+      scorers.push("own goal");
+    } else {
+      scorers.push(`own goal x${ownGoals}`);
+    }
+  }
 
   const date = formatDateShort(match["Date"]);
   const type = match["Match Type"] === "League" ? "L" : "F";
