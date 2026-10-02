@@ -766,6 +766,18 @@ m["Match Type"] === matchType
 
 }
 
+if(
+selectedPlayer !== "All Players"
+){
+
+data =
+data.filter(
+m =>
+m[selectedPlayer + " Appearance"] === "Y"
+);
+
+}
+
 let wins = 0;
 let draws = 0;
 let losses = 0;
