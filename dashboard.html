@@ -536,6 +536,23 @@ Friendly
 
 </div>
 
+<div>
+
+<label>
+Player
+</label>
+
+<select
+id="playerSelect">
+
+<option selected>
+All Players
+</option>
+
+</select>
+
+</div>
+
 </div>
 
 </div>
@@ -678,9 +695,27 @@ return obj;
 
 });
 
+populatePlayerDropdown();
 render();
 
 });
+
+function populatePlayerDropdown(){
+
+const playerSelect = document.getElementById("playerSelect");
+
+players.forEach(player => {
+
+const option = document.createElement("option");
+option.value = player;
+option.textContent = player;
+playerSelect.appendChild(option);
+
+});
+
+playerSelect.addEventListener("change", render);
+
+}
 
 function render(){
 
@@ -695,6 +730,13 @@ const matchType =
 document
 .getElementById(
 "matchTypeSelect"
+)
+.value;
+
+const selectedPlayer =
+document
+.getElementById(
+"playerSelect"
 )
 .value;
 
@@ -794,6 +836,7 @@ player + " Goals"
 });
 
 });
+
 document.getElementById(
 "summary"
 ).innerHTML = `
@@ -1002,32 +1045,27 @@ player + " x" + goals
 
 });
 
-const totalGoals =
+const date =
+match["Date"] || "";
+const type =
+match["Match Type"]
+==="League" ? "L" : "F";
+const opponent =
+match["Opposition"] || "";
+const gf =
 Number(
 match["Goals For"] || 0
 );
-
-const ownGoals =
-totalGoals - assignedGoals;
-
-if(ownGoals > 0){
-
-if(ownGoals === 1){
-
-scorers.push(
-"Own Goal"
+const ga =
+Number(
+match["Goals Against"] || 0
 );
-
-}else{
-
-scorers.push(
-"Own Goals x" +
-ownGoals
-);
-
-}
-
-}
+const captain =
+match["Captain"] || "";
+const goalsText =
+scorers.length > 0
+? scorers.join(", ")
+: "No goals";
 
 let resultClass = "";
 
@@ -1035,66 +1073,28 @@ if(
 match["Result"] === "Win"
 ){
 resultClass = "win";
-}
-else if(
+}else if(
 match["Result"] === "Draw"
 ){
 resultClass = "draw";
-}
-else{
+}else{
 resultClass = "loss";
 }
-
-const shortType =
-match["Match Type"] === "League"
-? "L"
-: "F";
-
-const venueCode =
-match["Venue"] === "Home"
-? "H"
-: "A";
-
-const scoreColour =
-match["Result"] === "Win"
-? "win"
-: match["Result"] === "Draw"
-? "draw"
-: "loss";
-
-const shortDate =
-match["Date"].length >= 10
-? match["Date"].substring(0,8) +
-match["Date"].substring(10)
-: match["Date"];
 
 matchHTML += `
 
 <tr>
 
-<td>
-${shortDate}
+<td>${date}</td>
+<td>${type}</td>
+<td>${opponent}</td>
+
+<td class="${resultClass}">
+${gf} - ${ga}
 </td>
 
-<td>
-${shortType}
-</td>
-
-<td>
-${match["Opposition"]} (${venueCode})
-</td>
-
-<td class="${scoreColour}">
-${match["Goals For"]}-${match["Goals Against"]}
-</td>
-
-<td>
-${match["Captain"]}
-</td>
-
-<td>
-${scorers.join(", ")}
-</td>
+<td>${captain}</td>
+<td>${goalsText}</td>
 
 </tr>
 
@@ -1102,16 +1102,14 @@ ${scorers.join(", ")}
 
 });
 
-matchHTML +=
-"</table>";
+matchHTML += `</table>`;
 
 document.getElementById(
-  
 "matches"
 ).innerHTML =
 matchHTML;
 
-let playerHTML = `
+let playerStatsHTML = `
 
 <table>
 
@@ -1120,87 +1118,58 @@ let playerHTML = `
 <th>Player</th>
 <th>Apps</th>
 <th>Goals</th>
+<th>G/A</th>
 
 </tr>
 
 `;
 
-players
-.map(player=>({
+Object
+.entries(playerApps)
+.sort(
+(a,b) =>
+b[1] - a[1]
+)
+.forEach(
+([player,apps]) => {
 
-name:player,
+const goals =
+playerGoals[player];
 
-apps:
-playerApps[player],
+const ratio =
+apps > 0
+? (goals/apps)
+.toFixed(2)
+: "0.00";
 
-goals:
-playerGoals[player]
-
-}))
-
-.sort((a,b)=>{
-
-if(
-b.apps === a.apps
-){
-return b.goals - a.goals;
-}
-
-return b.apps - a.apps;
-
-})
-
-.forEach(player=>{
-
-playerHTML += `
+playerStatsHTML += `
 
 <tr>
 
-<td>
-${player.name}
-</td>
-
-<td>
-${player.apps}
-</td>
-
-<td>
-${player.goals}
-</td>
+<td>${player}</td>
+<td>${apps}</td>
+<td>${goals}</td>
+<td>${ratio}</td>
 
 </tr>
 
 `;
 
-});
+}
+);
 
-playerHTML +=
-"</table>";
+playerStatsHTML +=
+`</table>`;
 
 document.getElementById(
 "playerStats"
 ).innerHTML =
-playerHTML;
+playerStatsHTML;
 
 }
 
-document
-.getElementById(
-"seasonSelect"
-)
-.addEventListener(
-"change",
-render
-);
-
-document
-.getElementById(
-"matchTypeSelect"
-)
-.addEventListener(
-"change",
-render
-);
+document.getElementById("seasonSelect").addEventListener("change", render);
+document.getElementById("matchTypeSelect").addEventListener("change", render);
 
 </script>
 
