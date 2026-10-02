@@ -465,6 +465,19 @@ const csvUrl =
 
 let matches = [];
 
+function formatDateShort(dateStr){
+if(!dateStr) return "";
+const parts = dateStr.split(/[-\/]/);
+if(parts.length >= 3){
+  const year = parts[0].length === 4 ? parts[0] : parts[2];
+  const month = parts[0].length === 4 ? parts[1] : parts[1];
+  const day = parts[0].length === 4 ? parts[2] : parts[0];
+  const yy = year.slice(-2);
+  return `${day}/${month}/${yy}`;
+}
+return dateStr;
+}
+
 function getHomeAwayCode(match){
 const values = [
 match["Home/Away"],
@@ -657,7 +670,7 @@ data.slice().reverse().forEach(match => {
     }
   });
 
-  const date = match["Date"] || "";
+  const date = formatDateShort(match["Date"]);
   const type = match["Match Type"] === "League" ? "L" : "F";
   const opponent = getOpponentLabel(match);
   const gf = Number(match["Goals For"] || 0);
